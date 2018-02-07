@@ -1,35 +1,42 @@
 var gulp = require("gulp"),
     sass = require("gulp-sass"),
     svgSprite = require('gulp-svg-sprite');
+    autoprefixer = require('gulp-autoprefixer');
+    browser = require("browser-sync");
 
-
+/*
+sass
+ */
 gulp.task("sass", function() {
-    gulp.src("./src/sass/*scss")
-        .pipe(sass())
-        .pipe(gulp.dest("./assets/css/"));
+  gulp.src("./src/sass/*scss")
+  .pipe(sass())
+  .pipe(autoprefixer())
+  .pipe(gulp.dest("./assets/css/"));
 });
 
 
-// svgスプライト
-gulp.task('svg-sprite', function () {
+/*
+svg-sprite
+ */
+gulp.task('svg-sprite', function() {
 
   config = {
     mode: {
-      // cssでsvgを指定
+      // cssでsvg指定
       view: {
         render: {
           scss: {
-            dest: '/src/sass/_svgSprite.scss',// gulpfileから見たsass出力ディレクトリ
+            dest: '../src/sass/sprite/_svgSprite.scss',// gulpfileから見たsass出力ディレクトリ
           },
         },
-        sprite: '../../assets/img/sprite.view.svg',// sassから見たsvg出力場所(指定しないと/view/ができる)
+        sprite: '../assets/img/sprite/sprite.view.svg',// gulpfileから見たsvg出力場所(指定しないと/view/ができる)
         dimensions: false, // sass上でのwidth/height指定を削除
         bust: false // キャッシュ用パラメータを削除
       },
 
-      // useタグで指定
+      // useタグでsvg指定
       symbol: {
-        sprite: '../../assets/img/sprite.symbol.svg',// sassから見たsvg出力場所
+        sprite: '../assets/img/sprite/sprite.symbol.svg',// gulpfileから見たsvg出力場所
       }
     },
     shape : {
@@ -52,11 +59,35 @@ gulp.task('svg-sprite', function () {
     }
   };
 
-  gulp.src('/assets/img/*.svg')
-    .pipe(svgSprite(config))
-    .pipe(gulp.dest('.'));
+  gulp.src('assets/img/*.svg')
+  .pipe(svgSprite(config))
+  .pipe(gulp.dest('.'));
 });
 
-gulp.task('default', ['sass','svg-sprite']);
+/*
+browserSync
+ */
+gulp.task("browserSyncTask", function () {
+    browser({
+        server: {
+            baseDir: "." // ルートとなるディレクトリを指定
+        }
+    });
+ 
+    gulp.watch("src/**", function() {
+        browser.reload();
+    });
+});
+
+
+/*
+watch
+ */
+gulp.task('watch', function() {
+  gulp.watch('src/sass/**/*.scss', ['sass']);
+});
+
+
+gulp.task('default', ['browserSyncTask','watch','sass','svg-sprite']);
 
 
