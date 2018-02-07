@@ -1,0 +1,38 @@
+// ページスタイル
+.content {
+  width: 1000px;
+  margin: 50px auto;
+}
+.box {
+  display: flex;
+  flex-wrap:wrap;
+  justify-content: space-between;
+  &-inner {
+    width: 450px;
+    height: 450px;
+    border: 1px solid #ccc;
+  }
+}
+
+// background用
+.mode-view {
+  width: 100%;
+  height: 100%; 
+  &.cat {
+    @extend .svg-cat;
+  }
+  &.beer {
+    @extend .svg-beer;
+  }
+}
+// インライン用
+.mode-symbol {
+  width: 100%;
+  height: 100%;
+  &.cat {
+    fill: red;
+}
+  &.beer {
+    fill: blue;
+  }
+}

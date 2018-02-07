@@ -1,6 +1,11 @@
-h1 {
-  color: red;
-  &:hover {
-    color: blue;
-  }
-}
+
+
+// 生成されたspriteをimport
+@import "sprite/svgSprite";
+
+// 生成された上記ファイルをカスタム上書き
+@import "sprite/custom";
+
+
+// ページの基本的なスタイル
+@import "style";

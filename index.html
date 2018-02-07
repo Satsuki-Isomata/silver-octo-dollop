@@ -1,14 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>svgスプライト テストs</title>
+  <meta charset="utf-8">
+  <title>svgスプライト テスト</title>
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/ress/dist/ress.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+  <script src="assets/js/svg4everybody.min.js"></script>
+  <script>svg4everybody();</script>
 </head>
 <body>
-  <h1>テストです。</h1>
-  <div>
-    <div class="">
-      <!-- sassから吐き出すsvg -->
+  
+  <div class="content">
+    <h1>テストです。</h1>
+    <div>
+      <h2>viewモード</h2>
+      <p>background-imageでsvgを指定。</p>
+      <div class="box">
+        <div class="box-inner">
+          <div class="mode-view cat"><!-- cat --></div>
+        </div>
+        <div class="box-inner">
+          <div class="mode-view beer"><!-- beer --></div>
+        </div> 
+      </div> 
     </div>
+    <div>
+      <h2>symbolモード</h2>
+      <p>インラインでsvgを指定。</p>
+      <div class="box">
+        <div class="box-inner">
+          <svg class="mode-symbol beer" role="img">
+            <title>beer</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="assets/img/sprite/sprite.symbol.svg#beer"></use>
+          </svg>
+        </div>
+        <div class="box-inner">
+          <svg class="mode-symbol cat" role="img">
+            <title>cat</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="assets/img/sprite/sprite.symbol.svg#cat"></use>
+          </svg>
+        </div> 
+      </div> 
+    </div>
+
   </div>
 </body>
 </html>

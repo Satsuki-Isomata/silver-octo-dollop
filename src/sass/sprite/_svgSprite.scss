@@ -1,0 +1,14 @@
+%svg-common {
+	background: url("../assets/img/sprite/sprite.view.svg") no-repeat;
+}
+
+.svg-beer {
+	@extend %svg-common;
+	background-position: 0 0;
+}
+
+.svg-cat {
+	@extend %svg-common;
+	background-position: 100% 0;
+}
+
