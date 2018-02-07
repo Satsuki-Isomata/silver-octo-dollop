@@ -14,7 +14,7 @@
   }
 }
 
-// background用
+// viewモード
 .mode-view {
   width: 100%;
   height: 100%; 
@@ -25,14 +25,15 @@
     @extend .svg-beer;
   }
 }
-// インライン用
+
+// symbolモード
 .mode-symbol {
   width: 100%;
   height: 100%;
   &.cat {
-    fill: red;
+    fill: #8D4C32;
 }
   &.beer {
-    fill: blue;
+    fill: #BF923B;
   }
 }

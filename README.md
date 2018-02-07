@@ -1,2 +1,3 @@
-# silver-octo-dollop
+# test_svg-sprite
+
 gulp-svg-spriteのテストです。
