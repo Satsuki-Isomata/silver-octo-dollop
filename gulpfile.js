@@ -18,51 +18,61 @@ gulp.task("sass", function() {
 /*
 svg-sprite
  */
-
-// sprite設定
-config = {
-mode: {
-  // cssでsvg指定
-  view: {
-    render: {
-      scss: {
-        dest: '../src/sass/sprite/_svgSprite.scss',// gulpfileから見たsass出力ディレクトリ
-      },
-    },
-    sprite: '../assets/img/sprite/sprite.view.svg',// gulpfileから見たsvg出力場所(指定しないと/view/ができる)
-    dimensions: false, // sass上でのwidth/height指定を削除
-    bust: false // キャッシュ用パラメータを削除
-  },
-
-  // useタグでsvg指定
-  symbol: {
-    sprite: '../assets/img/sprite/sprite.symbol.svg',// gulpfileから見たsvg出力場所
-  }
-},
-shape : {
-  transform: [
-    {
-      svgo: { // svgoオプション
-        plugins: [
-          { 'removeTitle': true }, // titleを削除
-          { 'removeStyleElement': true }, // styleを削除
-          { 'removeAttrs': { 'attrs': 'fill' } }, // fillを削除
-          { 'removeXMLNS': true }, // xmlnを削除
-          { 'removeDimensions': true } // width/heightを削除
-        ]
+// symbol mode
+gulp.task('svg-sprite-symbol', function() {
+  config = {
+    mode: {
+    // useタグでsvg指定
+      symbol: {
+        sprite: '../assets/img/sprite/sprite.symbol.svg',// gulpfileから見たsvg出力場所
       }
+    },
+    shape : {
+    transform: [
+      {
+        svgo: { // svgoオプション
+          plugins: [
+            { 'removeTitle': true }, // titleを削除
+            { 'removeStyleElement': true }, // styleを削除
+            { 'removeAttrs': { 'attrs': 'fill' } }, // fillを削除
+            { 'removeXMLNS': true }, // xmlnを削除
+            { 'removeDimensions': true } // width/heightを削除
+          ]
+        }
+      }
+    ]
+    },
+    svg : {
+      xmlDeclaration: false // xml宣言を削除
     }
-  ]
-},
-svg : {
-  xmlDeclaration: false // xml宣言を削除
-}
-};
-gulp.task('svg-sprite', function() {
+  };
   gulp.src('assets/img/*.svg')
   .pipe(svgSprite(config))
   .pipe(gulp.dest('.'));
 });
+
+// view mode
+gulp.task('svg-sprite-view', function() {
+  config = {
+    mode: {
+      // cssでsvg指定
+      view: {
+        render: {
+          scss: {
+            dest: '../src/sass/sprite/_svgSprite.scss',// gulpfileから見たsass出力ディレクトリ
+          },
+        },
+        sprite: '../assets/img/sprite/sprite.view.svg',// gulpfileから見たsvg出力場所(指定しないと/view/ができる)
+        dimensions: false, // sass上でのwidth/height指定を削除
+        bust: false // キャッシュ用パラメータを削除
+      }
+    }
+  };
+  gulp.src('assets/img/*.svg')
+  .pipe(svgSprite(config))
+  .pipe(gulp.dest('.'));
+});
+
 
 /*
 browserSync
@@ -88,6 +98,6 @@ gulp.task('watch', function() {
 });
 
 
-gulp.task('default', ['browserSyncTask','watch','sass','svg-sprite']);
+gulp.task('default', ['browserSyncTask','watch','sass','svg-sprite-symbol','svg-sprite-view']);
 
 
