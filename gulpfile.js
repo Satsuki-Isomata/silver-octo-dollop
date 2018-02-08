@@ -1,17 +1,17 @@
-var gulp = require("gulp"),
-    sass = require("gulp-sass"),
-    svgSprite = require('gulp-svg-sprite');
-    autoprefixer = require('gulp-autoprefixer');
-    browser = require("browser-sync");
+const gulp = require('gulp'),
+      sass = require('gulp-sass'),
+      svgSprite = require('gulp-svg-sprite'),
+      autoprefixer = require('gulp-autoprefixer'),
+      browser = require('browser-sync');
 
 /*
 sass
  */
-gulp.task("sass", function() {
-  gulp.src("./src/sass/*scss")
-  .pipe(sass())
-  .pipe(autoprefixer())
-  .pipe(gulp.dest("./assets/css/"));
+gulp.task('sass', () => {
+  gulp.src('./src/sass/*scss')
+    .pipe(sass())
+    .pipe(autoprefixer())
+    .pipe(gulp.dest('./assets/css/'));
 });
 
 
@@ -19,25 +19,29 @@ gulp.task("sass", function() {
 svg-sprite
  */
 
-// sprite設定
-view = {
+ // path
+const imgDir = 'assets/img/*.svg';
+const spriteDir = '../assets/img/sprite/';
+
+// mode config
+const view = {// view mode
+  // cssでsvg指定
   mode: {
-    // cssでsvg指定
     view: {
       render: {
         scss: {
-          dest: '../src/sass/sprite/_svgSprite.scss',// gulpfileから見たsass出力ディレクトリ
+          dest: '../src/sass/sprite/_svgSprite.scss',// sass出力先
         },
       },
-      sprite: '../assets/img/sprite/sprite.view.svg',// gulpfileから見たsvg出力場所(指定しないと/view/ができる)
-      dimensions: false, // sass上でのwidth/height指定を削除
+      sprite: `${spriteDir}sprite.view.svg`,// svg出力先
+      dimensions: false, // sass上でのサイズ用classを生成しない
       bust: false // キャッシュ用パラメータを削除
     }
   },
   shape : {
     transform: [
       {
-        svgo: { // svgoオプション
+        svgo: {
           plugins: [
             { 'removeTitle': true }, // titleを削除
             { 'removeXMLNS': true }, // xmlnを削除
@@ -51,70 +55,65 @@ view = {
     xmlDeclaration: false // xml宣言を削除
   }
 };
-symbol = {
+const symbol = {// view mode
   mode: {
-    // useタグでsvg指定
     symbol: {
-      sprite: '../assets/img/sprite/sprite.symbol.svg',// gulpfileから見たsvg出力場所
+      sprite: `${spriteDir}sprite.symbol.svg`,
     }
   },
   shape : {
     transform: [
       {
-        svgo: { // svgoオプション
+        svgo: {
           plugins: [
-            { 'removeTitle': true }, // titleを削除
+            { 'removeTitle': true },
             { 'removeStyleElement': true }, // styleを削除
             { 'removeAttrs': { 'attrs': 'fill' } }, // fillを削除
-            { 'removeXMLNS': true }, // xmlnを削除
-            { 'removeDimensions': true } // width/heightを削除
+            { 'removeXMLNS': true },
+            { 'removeDimensions': true }
           ]
         }
       }
     ]
   },
   svg : {
-    xmlDeclaration: false // xml宣言を削除
+    xmlDeclaration: false
   }
 };
 
-gulp.task('svg-sprite', function() {
-
-  // symbol mode
-  gulp.src('assets/img/*.svg')
-  .pipe(svgSprite(symbol))
-  .pipe(gulp.dest('.'));
-
-  // view mode
-  gulp.src('assets/img/*.svg')
-  .pipe(svgSprite(view))
-  .pipe(gulp.dest('.'));
+gulp.task('svg-sprite', () => {
+  gulp.src(imgDir)
+    .pipe(svgSprite(symbol))
+    .pipe(gulp.dest('.'));// sprite.symbol.svgを生成
+  gulp.src(imgDir)
+    .pipe(svgSprite(view))
+    .pipe(gulp.dest('.'));// sprite.view.svgと_svgSprite.scssを生成
 });
+
 
 /*
 browserSync
  */
-gulp.task("browserSyncTask", function () {
-    browser({
-        server: {
-            baseDir: "." // ルートとなるディレクトリを指定
-        }
-    });
- 
-    gulp.watch("src/**", function() {
-        browser.reload();
-    });
+gulp.task("browserSync", () => {
+  browser({
+    server: {
+      baseDir: "." // ルートとなるディレクトリを指定
+    }
+  });
+  gulp.watch("src/**", () => {
+    browser.reload();
+  });
 });
 
 
 /*
 watch
  */
-gulp.task('watch', function() {
+gulp.task('watch', () => {
   gulp.watch('src/sass/**/*.scss', ['sass']);
 });
 
 
-gulp.task('default', ['browserSyncTask','watch','sass','svg-sprite']);
+gulp.task('default', ['browserSync','watch','sass','svg-sprite']);
 
 
