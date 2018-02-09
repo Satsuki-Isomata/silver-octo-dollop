@@ -100,7 +100,7 @@ gulp.task("browserSync", () => {
       baseDir: "." // ルートとなるディレクトリを指定
     }
   });
-  gulp.watch("src/**", () => {
+  gulp.watch("./src/**", () => {
     browser.reload();
   });
 });
@@ -110,7 +110,7 @@ gulp.task("browserSync", () => {
 watch
  */
 gulp.task('watch', () => {
-  gulp.watch('src/sass/**/*.scss', ['sass']);
+  gulp.watch('./src/sass/**/*.scss', ['sass']);
 });
 
 
