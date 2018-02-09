@@ -1,5 +1,5 @@
 .svg-beer, .mode-view.beer, .svg-cat, .mode-view.cat {
-  background: url("../assets/img/sprite/sprite.view.svg") no-repeat; }
+  background: url("../dest/img/sprite.view.svg") no-repeat; }
 
 .svg-beer, .mode-view.beer {
   background-position: 0 0; }
@@ -8,7 +8,7 @@
   background-position: 100% 0; }
 
 .svg-beer, .mode-view.beer, .svg-cat, .mode-view.cat {
-  background-image: url("../img/sprite/sprite.view.svg");
+  background-image: url("../img/sprite.view.svg");
   background-size: cover; }
 
 .content {

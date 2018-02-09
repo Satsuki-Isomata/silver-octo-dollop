@@ -11,7 +11,7 @@ gulp.task('sass', () => {
   gulp.src('./src/sass/*scss')
     .pipe(sass())
     .pipe(autoprefixer())
-    .pipe(gulp.dest('./assets/css/'));
+    .pipe(gulp.dest('./dest/css/'));
 });
 
 
@@ -20,8 +20,8 @@ svg-sprite
  */
 
  // path
-const imgDir = 'assets/img/*.svg';
-const spriteDir = '../assets/img/sprite/';
+const imgDir = './src/img/*.svg';
+const spriteDir = '../dest/img/';
 
 // mode config
 const view = {// view mode
