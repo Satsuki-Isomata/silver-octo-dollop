@@ -2,38 +2,71 @@
 .content {
   width: 1000px;
   margin: 50px auto;
-}
-.box {
-  display: flex;
-  flex-wrap:wrap;
-  justify-content: space-between;
-  &-inner {
-    width: 450px;
-    height: 450px;
-    border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  padding: 50px; 
+  h1 {
+    border-bottom: 1px solid #ccc;
+  }
+  h2 {
+    margin-top: 20px;
   }
 }
 
-// viewモード
-.mode-view {
-  width: 100%;
-  height: 100%; 
-  &.cat {
-    @extend .svg-cat;
-  }
-  &.beer {
-    @extend .svg-beer;
+.viewMode {
+  display: flex;
+  margin-top: 20px;
+  &-item {
+    padding: 10px 10px 10px 60px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    position: relative;
+    &:before {
+      display: block;
+      position: absolute;
+      content: '';
+      width: 40px;
+      height: 40px;
+      top: 50%;
+      left: 10px;
+      margin-top: -20px;
+    }
+    &.cat { 
+      margin-right: 50px;
+      &:before {
+        @extend .svg-cat; //_svgSprite.scssから継承
+      }
+    }
+    &.beer {
+      &:before {
+        @extend .svg-beer; //_svgSprite.scssから継承
+      }
+    }
   }
 }
 
 // symbolモード
-.mode-symbol {
-  width: 100%;
-  height: 100%;
-  &.cat {
-    fill: #8D4C32;
-}
-  &.beer {
-    fill: #BF923B;
+.symbolMode {
+  display: flex;
+  margin-top: 20px;
+
+  &-item {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    &.cat {
+      fill: #8D4C32;
+      margin-right: 50px;
+    }
+    &.beer {
+      fill: #BF923B;
+    }
+  }
+  &-ico {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
   }
 }
+

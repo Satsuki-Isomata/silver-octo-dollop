@@ -15,31 +15,30 @@
     <div>
       <h2>viewモード</h2>
       <p>background-imageでsvgを指定。</p>
-      <div class="box">
-        <div class="box-inner">
-          <div class="mode-view cat"><!-- cat --></div>
-        </div>
-        <div class="box-inner">
-          <div class="mode-view beer"><!-- beer --></div>
-        </div> 
+
+      <div class="viewMode">
+        <p class="viewMode-item cat">ねこです。</p>
+        <p class="viewMode-item beer">ビールです。</p>
       </div> 
     </div>
     <div>
       <h2>symbolモード</h2>
       <p>インラインでsvgを指定。</p>
-      <div class="box">
-        <div class="box-inner">
-          <svg class="mode-symbol beer" role="img">
+      <div class="symbolMode">
+        <div class="symbolMode-item cat">
+          <svg class="symbolMode-ico" role="img">
             <title>beer</title>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="dest/img/sprite.symbol.svg#beer"></use>
+            <use xmlns:xlink="http://www.w3.org/2000/svg" xlink:href="dest/img/sprite.symbol.svg#cat"></use>
           </svg>
+          <p>ねこです。</p>
         </div>
-        <div class="box-inner">
-          <svg class="mode-symbol cat" role="img">
-            <title>cat</title>
-            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="dest/img/sprite.symbol.svg#cat"></use>
+        <div class="symbolMode-item beer">
+          <svg class="symbolMode-ico" role="img">
+            <title>beer</title>
+            <use xmlns:xlink="http://www.w3.org/2000/svg" xlink:href="dest/img/sprite.symbol.svg#beer"></use>
           </svg>
-        </div> 
+          <p>ビールです。</p>
+        </div>
       </div> 
     </div>
 
